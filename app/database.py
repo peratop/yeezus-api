@@ -1,9 +1,13 @@
+import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
-DATABASE_URL = "mysql+aiomysql://root:pucPR%40123@localhost/yeezus"
+load_dotenv()
 
-engine = create_async_engine(DATABASE_URL, echo=True)
+DATABASE=os.environ.get("DATABASE_URL")
+
+engine = create_async_engine(DATABASE, echo=True)
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 async def get_db():
